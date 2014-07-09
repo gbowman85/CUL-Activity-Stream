@@ -16,12 +16,6 @@
 
 
 
-
-
-
-
-
-
 /**
  * CUL Activity Stream processor version information
  *
@@ -34,5 +28,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2014052700;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2014060900;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->component = 'message_culactivity_stream';  // Full name of the plugin (used for diagnostics).

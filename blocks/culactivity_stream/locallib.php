@@ -89,7 +89,7 @@ function block_culactivity_stream_get_notifications($courseid=SITEID, $lastid=0,
 
         // If we have the course id then get the course image or a default
         // gravatar.
-        if (isset($notification->courseid) && $notification->courseid != 0) {
+        if (isset($notification->courseid) && $notification->courseid != 0 && $notification->courseid != SITEID) {
             $notification->img = block_culactivity_stream_get_course_img($notification->courseid);
         } else { // Else get the user image.
             $notification->img = block_culactivity_stream_get_user_img($notification->userfromid);
@@ -103,7 +103,7 @@ function block_culactivity_stream_get_notifications($courseid=SITEID, $lastid=0,
         } else if ($notification->component == 'moodle'
                 || $notification->component == 'core') { // TODO need a default image.
             $notification->icon = 'i/user';
-            $notification->title = null;
+            $notification->title = get_string('user');
         } else {
             $notification->icon = 'icon';
             $notification->title = substr($notification->component, 0, 4) == 'mod_' ?

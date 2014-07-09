@@ -32,52 +32,96 @@
 function xmldb_message_culactivity_stream_upgrade($oldversion) {
     global $CFG, $DB, $OUTPUT;
 
-    if ($oldversion < 2014022803) { // TODO default values + add modulename and contexturlname.
+    if ($oldversion < 2014060601) {
 
-        $starttime = time();
         $dbman = $DB->get_manager();
 
-        // Create new table to queue course update messages.
+        // Changing type of field contexturl on table message_culactivity_stream to text.
+        $table = new xmldb_table('message_culactivity_stream');
+        $field = new xmldb_field('contexturl', XMLDB_TYPE_TEXT, null, null, null, null, null, 'timecreated');
+
+        // Launch change of type for field contexturl.
+        $dbman->change_field_type($table, $field);
+
+        // Changing nullability of field contexturl on table message_culactivity_stream to null.
+        $field = new xmldb_field('contexturl', XMLDB_TYPE_TEXT, null, null, null, null, null, 'timecreated');
+
+        // Launch change of nullability for field contexturl.
+        $dbman->change_field_notnull($table, $field);
+
+        // Changing the default of field contexturl on table message_culactivity_stream to drop it.
+        $field = new xmldb_field('contexturl', XMLDB_TYPE_TEXT, null, null, null, null, null, 'timecreated');
+
+        // Launch change of default for field contexturl.
+        $dbman->change_field_default($table, $field);
+
+        // Changing the default of field component on table message_culactivity_stream_q to local_culactivity_stream.
         $table = new xmldb_table('message_culactivity_stream_q');
+        $field = new xmldb_field(
+            'component',
+            XMLDB_TYPE_CHAR,
+            '255',
+            null,
+            XMLDB_NOTNULL,
+            null,
+            'local_culactivity_stream',
+            'smallmessage'
+        );
 
-        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED,
-            XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        // Launch change of default for field component.
+        $dbman->change_field_default($table, $field);
 
-        $table->add_field('sent', XMLDB_TYPE_INTEGER, '2',
-            XMLDB_UNSIGNED, XMLDB_NOTNULL, null, 0, null);
+        // Changing nullability of field modulename on table message_culactivity_stream_q to null.
+        $field = new xmldb_field('modulename', XMLDB_TYPE_CHAR, '255', null, null, null, null, 'component');
 
-        $table->add_field('userfromid', XMLDB_TYPE_INTEGER, '18',
-            XMLDB_UNSIGNED, XMLDB_NOTNULL, null, 0, null);
+        // Launch change of nullability for field modulename.
+        $dbman->change_field_notnull($table, $field);
 
-        $table->add_field('courseid', XMLDB_TYPE_INTEGER, '18',
-            XMLDB_UNSIGNED, null, null, 0, null);
+        // Changing the default of field modulename on table message_culactivity_stream_q to drop it.
+        $field = new xmldb_field('modulename', XMLDB_TYPE_CHAR, '255', null, null, null, null, 'component');
 
-        $table->add_field('cmid', XMLDB_TYPE_INTEGER, '18',
-            XMLDB_UNSIGNED, null, null, 0, null);
+        // Launch change of default for field modulename.
+        $dbman->change_field_default($table, $field);
 
-        $table->add_field('smallmessage', XMLDB_TYPE_TEXT, 'big',
-            null, null, null, null);
+        // Changing type of field contexturl on table message_culactivity_stream_q to text.
+        $field = new xmldb_field('contexturl', XMLDB_TYPE_TEXT, null, null, null, null, null, 'timecreated');
 
-        $table->add_field('component', XMLDB_TYPE_CHAR, '',
-            null, XMLDB_NOTNULL, null, null);
+        // Launch change of type for field contexturl.
+        $dbman->change_field_type($table, $field);
 
-        $table->add_field('modulename', XMLDB_TYPE_CHAR, '',
-            null, XMLDB_NOTNULL, null, null);
+        // Changing nullability of field contexturl on table message_culactivity_stream_q to null.
+        $field = new xmldb_field('contexturl', XMLDB_TYPE_TEXT, null, null, null, null, null, 'timecreated');
 
-        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '18',
-            XMLDB_UNSIGNED, XMLDB_NOTNULL, null, 0, null);
+        // Launch change of nullability for field contexturl.
+        $dbman->change_field_notnull($table, $field);
 
-        $table->add_field('contexturl', XMLDB_TYPE_CHAR, '',
-            null, XMLDB_NOTNULL, null, null);
+        // Changing the default of field contexturl on table message_culactivity_stream_q to drop it.
+        $field = new xmldb_field('contexturl', XMLDB_TYPE_TEXT, null, null, null, null, null, 'timecreated');
 
-        $table->add_field('contexturlname', XMLDB_TYPE_CHAR, '',
-            null, XMLDB_NOTNULL, null, null);
+        // Launch change of default for field contexturl.
+        $dbman->change_field_default($table, $field);
 
-        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        // Changing type of field contexturlname on table message_culactivity_stream_q to text.
+        $field = new xmldb_field('contexturlname', XMLDB_TYPE_TEXT, null, null, null, null, null, 'contexturl');
 
-        if (!$dbman->table_exists($table)) {
-            $dbman->create_table($table);
-        }
+        // Launch change of type for field contexturlname.
+        $dbman->change_field_type($table, $field);
+
+        // Changing nullability of field contexturlname on table message_culactivity_stream_q to null.
+        $field = new xmldb_field('contexturlname', XMLDB_TYPE_TEXT, null, null, null, null, null, 'contexturl');
+
+        // Launch change of nullability for field contexturlname.
+        $dbman->change_field_notnull($table, $field);
+
+        // Changing the default of field contexturlname on table message_culactivity_stream_q to drop it.
+        $field = new xmldb_field('contexturlname', XMLDB_TYPE_TEXT, null, null, null, null, null, 'contexturl');
+
+        // Launch change of default for field contexturlname.
+        $dbman->change_field_default($table, $field);
+
+        // Culactivity_stream savepoint reached.
+        upgrade_plugin_savepoint(true, 2014060601, 'message', 'culactivity_stream');
     }
+
     return true;
 }

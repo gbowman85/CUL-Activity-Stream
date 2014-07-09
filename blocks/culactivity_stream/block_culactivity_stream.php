@@ -122,6 +122,10 @@ class block_culactivity_stream extends block_base {
         return false;
     }
 
+    public function has_config() {
+        return true;
+    }
+
     /**
      * Return a block_contents object representing the full contents of this block.
      *

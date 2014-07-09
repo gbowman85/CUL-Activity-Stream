@@ -263,7 +263,7 @@ class course_picture implements renderable {
                 }
             }
 
-        } else if (!empty($CFG->enablegravatar)) {
+        } else if (!empty($CFG->block_culactivity_stream_gravatar)) {
             // Normalise the size variable to acceptable bounds.
             if ($size < 1 || $size > 512) {
                 $size = 35;
@@ -274,7 +274,7 @@ class course_picture implements renderable {
             // Build a gravatar URL with what we know.
 
             // Find the best default image URL we can (MDL-35669).
-            if (empty($CFG->gravatardefaulturl)) {
+            if (empty($CFG->block_culactivity_stream_gravatar)) {
                 $absoluteimagepath = $page->theme->resolve_image_location('u/f2', 'core');
                 if (strpos($absoluteimagepath, $CFG->dirroot) === 0) {
                     $gravatardefault = $CFG->wwwroot . substr($absoluteimagepath, strlen($CFG->dirroot));
@@ -282,7 +282,7 @@ class course_picture implements renderable {
                     $gravatardefault = $CFG->wwwroot . '/pix/u/f2.png';
                 }
             } else {
-                $gravatardefault = $CFG->gravatardefaulturl;
+                $gravatardefault = $CFG->block_culactivity_stream_gravatar;
             }
 
             // If the currently requested page is https then we'll return an

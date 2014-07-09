@@ -51,7 +51,7 @@ div.block_culactivity_stream div.content {
     max-width: none !important;
 }
 
-.block_culactivity_stream .text {
+.block_culactivity_stream .notificationtext {
     display: inline-block;
     width: 70%;
     overflow: hidden;
