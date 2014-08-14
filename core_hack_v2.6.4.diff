@@ -1,8 +1,8 @@
 diff --git a/mod/assign/locallib.php b/mod/assign/locallib.php
-index 55cb0d5..aaf848c 100644
+index 6b47503..90b2d4d 100644
 --- a/mod/assign/locallib.php
 +++ b/mod/assign/locallib.php
-@@ -4398,6 +4398,7 @@ class assign {
+@@ -4420,6 +4420,7 @@ class assign {
          $eventdata->notification    = 1;
          $eventdata->contexturl      = $info->url;
          $eventdata->contexturlname  = $info->assignment;
@@ -11,10 +11,10 @@ index 55cb0d5..aaf848c 100644
          message_send($eventdata);
      }
 diff --git a/mod/feedback/lib.php b/mod/feedback/lib.php
-index 5a9ed8d..de32ae0 100644
+index 51d1bb5..0ac48ef 100644
 --- a/mod/feedback/lib.php
 +++ b/mod/feedback/lib.php
-@@ -2944,7 +2944,10 @@ function feedback_send_email($cm, $feedback, $course, $userid) {
+@@ -2950,7 +2950,10 @@ function feedback_send_email($cm, $feedback, $course, $userid) {
                  $eventdata->fullmessage      = $posttext;
                  $eventdata->fullmessageformat = FORMAT_PLAIN;
                  $eventdata->fullmessagehtml  = $posthtml;
@@ -26,7 +26,7 @@ index 5a9ed8d..de32ae0 100644
                  message_send($eventdata);
              } else {
                  $eventdata = new stdClass();
-@@ -2956,7 +2959,10 @@ function feedback_send_email($cm, $feedback, $course, $userid) {
+@@ -2962,7 +2965,10 @@ function feedback_send_email($cm, $feedback, $course, $userid) {
                  $eventdata->fullmessage      = $posttext;
                  $eventdata->fullmessageformat = FORMAT_PLAIN;
                  $eventdata->fullmessagehtml  = $posthtml;
@@ -38,7 +38,7 @@ index 5a9ed8d..de32ae0 100644
                  message_send($eventdata);
              }
          }
-@@ -3013,7 +3019,10 @@ function feedback_send_email_anonym($cm, $feedback, $course) {
+@@ -3019,7 +3025,10 @@ function feedback_send_email_anonym($cm, $feedback, $course) {
              $eventdata->fullmessage      = $posttext;
              $eventdata->fullmessageformat = FORMAT_PLAIN;
              $eventdata->fullmessagehtml  = $posthtml;
@@ -51,7 +51,7 @@ index 5a9ed8d..de32ae0 100644
          }
      }
 diff --git a/mod/feedback/show_nonrespondents.php b/mod/feedback/show_nonrespondents.php
-index 4f32247..a2c7f16 100644
+index 48cfa69..49d17a9 100644
 --- a/mod/feedback/show_nonrespondents.php
 +++ b/mod/feedback/show_nonrespondents.php
 @@ -112,7 +112,10 @@ if ($action == 'sendmessage' AND has_capability('moodle/course:bulkmessaging', $
@@ -67,7 +67,7 @@ index 4f32247..a2c7f16 100644
          }
          if (!empty($good)) {
 diff --git a/mod/forum/lib.php b/mod/forum/lib.php
-index 1966ec1..b231c3d 100644
+index 9799738..23d527c 100644
 --- a/mod/forum/lib.php
 +++ b/mod/forum/lib.php
 @@ -768,6 +768,7 @@ function forum_cron() {
@@ -79,7 +79,7 @@ index 1966ec1..b231c3d 100644
                  $mailresult = message_send($eventdata);
                  if (!$mailresult){
 diff --git a/mod/lesson/essay.php b/mod/lesson/essay.php
-index c824a63..bb76c61 100644
+index d829ad3..5530154 100644
 --- a/mod/lesson/essay.php
 +++ b/mod/lesson/essay.php
 @@ -219,9 +219,15 @@ switch ($mode) {
@@ -115,10 +115,10 @@ index c824a63..bb76c61 100644
                  message_send($eventdata);
                  $essayinfo->sent = 1;
 diff --git a/mod/lesson/lang/en/lesson.php b/mod/lesson/lang/en/lesson.php
-index 6dc34e7..c1c4719 100644
+index a309584..71304aa 100644
 --- a/mod/lesson/lang/en/lesson.php
 +++ b/mod/lesson/lang/en/lesson.php
-@@ -166,6 +166,7 @@ $string['eolstudentoutoftimenoanswers'] = 'You did not answer any questions.  Yo
+@@ -168,6 +168,7 @@ $string['eolstudentoutoftimenoanswers'] = 'You did not answer any questions.  Yo
  $string['essay'] = 'Essay';
  $string['essayemailmessage'] = '<p>Essay prompt:<blockquote>{$a->question}</blockquote></p><p>Your response:<blockquote><em>{$a->response}</em></blockquote></p><p>{$a->teacher}\'s comments:<blockquote><em>{$a->comment}</em></blockquote></p><p>You have received {$a->earned} out of {$a->outof} for this essay question.</p><p>Your grade for the lesson has been changed to {$a->newgrade}&#37;.</p>';
  $string['essayemailmessage2'] = '<p>Essay prompt:<blockquote>{$a->question}</blockquote></p><p>Your response:<blockquote><em>{$a->response}</em></blockquote></p><p>Grader\'s comments:<blockquote><em>{$a->comment}</em></blockquote></p><p>You have received {$a->earned} out of {$a->outof} for this essay question.</p><p>Your grade for the lesson has been changed to {$a->newgrade}&#37;.</p>';
@@ -127,10 +127,10 @@ index 6dc34e7..c1c4719 100644
  $string['essays'] = 'Essays';
  $string['essayscore'] = 'Essay score';
 diff --git a/mod/quiz/locallib.php b/mod/quiz/locallib.php
-index 04ac573..9155a29 100644
+index f1be585..be84296 100644
 --- a/mod/quiz/locallib.php
 +++ b/mod/quiz/locallib.php
-@@ -1524,6 +1524,7 @@ function quiz_send_confirmation($recipient, $a) {
+@@ -1538,6 +1538,7 @@ function quiz_send_confirmation($recipient, $a) {
      $eventdata->smallmessage      = get_string('emailconfirmsmall', 'quiz', $a);
      $eventdata->contexturl        = $a->quizurl;
      $eventdata->contexturlname    = $a->quizname;
@@ -138,7 +138,7 @@ index 04ac573..9155a29 100644
  
      // ... and send it.
      return message_send($eventdata);
-@@ -1560,6 +1561,7 @@ function quiz_send_notification($recipient, $submitter, $a) {
+@@ -1574,6 +1575,7 @@ function quiz_send_notification($recipient, $submitter, $a) {
      $eventdata->smallmessage      = get_string('emailnotifysmall', 'quiz', $a);
      $eventdata->contexturl        = $a->quizreviewurl;
      $eventdata->contexturlname    = $a->quizname;
@@ -146,14 +146,7 @@ index 04ac573..9155a29 100644
  
      // ... and send it.
      return message_send($eventdata);
-@@ -1611,12 +1613,13 @@ function quiz_send_notification_messages($course, $quiz, $attempt, $context, $cm
-     $userstonotify = get_users_by_capability($context, 'mod/quiz:emailnotifysubmission',
-             $notifyfields, '', '', '', $groups, $notifyexcludeusers, false, false, true);
- 
--    if (empty($userstonotify) && !$sendconfirm) {
-+    if (empty($userstonotify) && !$sendconfirm) {die('boo');
-         return true; // Nothing to do.
-     }
+@@ -1631,6 +1633,7 @@ function quiz_send_notification_messages($course, $quiz, $attempt, $context, $cm
  
      $a = new stdClass();
      // Course info.
@@ -161,7 +154,7 @@ index 04ac573..9155a29 100644
      $a->coursename      = $course->fullname;
      $a->courseshortname = $course->shortname;
      // Quiz info.
-@@ -1728,6 +1731,7 @@ function quiz_send_overdue_message($course, $quiz, $attempt, $context, $cm) {
+@@ -1742,6 +1745,7 @@ function quiz_send_overdue_message($course, $quiz, $attempt, $context, $cm) {
      $eventdata->smallmessage      = get_string('emailoverduesmall', 'quiz', $a);
      $eventdata->contexturl        = $a->quizurl;
      $eventdata->contexturlname    = $a->quizname;
