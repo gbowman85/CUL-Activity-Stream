@@ -45,10 +45,13 @@ div.block_culactivity_stream div.content {
 
 .block_culactivity_stream .avatar img {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -100%;
+    left: -100%;
+    bottom: -100%;
+    right: -100%;
     height: 35px;
     max-width: none !important;
+    margin: auto;
 }
 
 .block_culactivity_stream .notificationtext {
@@ -103,5 +106,5 @@ div.block_culactivity_stream #block_culactivity_stream_reload img {
 
 div.block_culactivity_stream #loadinggif {
     vertical-align: middle;
-    margin-left: -16px;
+    margin-left: -22px;
 }

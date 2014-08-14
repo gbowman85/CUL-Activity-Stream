@@ -26,64 +26,6 @@
 
 
 /**
- * Function for handling mod_created events
- *
- * @param stdClass $eventdata
- * @return bool true
- */
-function local_culactivity_stream_mod_created($eventdata) {
-    return local_culactivity_stream_course_update($eventdata, 'mod_created');
-}
-
-/**
- * Function for handling mod_updated events
- *
- * @param stdClass $eventdata
- * @return bool true
- */
-function local_culactivity_stream_mod_updated($eventdata) {
-    return local_culactivity_stream_course_update($eventdata, 'mod_updated');
-}
-
-/**
- * Function to send messages to users following events that update courses
- *
- * @param stdClass $eventdata
- * Structure of $eventdata:
- * $eventdata->modulename
- * $eventdata->name
- * $eventdata->cmid
- * $eventdata->courseid
- * $eventdata->userid
- * @param string $type the name of the event
- * @return boolean true
- */
-function local_culactivity_stream_course_update($eventdata, $type) {
-    global $CFG, $DB;
-
-    $course = $DB->get_record('course', array('id' => $eventdata->courseid));
-    $messagetext = get_string($type, 'local_culactivity_stream', $eventdata->name);
-    $coursename = $course->idnumber ? $course->idnumber : $course->fullname;
-    $messagetext .= get_string('incourse', 'local_culactivity_stream', $coursename);
-
-    $message = new stdClass();
-    $message->userfromid = $eventdata->userid;
-    $message->courseid = $eventdata->courseid;
-    $message->cmid = $eventdata->cmid;
-    $message->smallmessage     = $messagetext;
-    $message->component = 'local_culactivity_stream';
-    $message->modulename = $eventdata->modulename;
-    $message->timecreated = time();
-    $message->contexturl = "$CFG->wwwroot/mod/$eventdata->modulename/view.php?id=$eventdata->cmid";
-    $message->contexturlname  = $eventdata->name;
-
-    // Add base message to queue - message_culactivity_queue.
-    $result = $DB->insert_record('message_culactivity_stream_q', $message);
-
-    return $result;
-}
-
-/**
  * local_culactivity_stream_cron()
  * Called periodically by the Moodle cron job.
  * @return void

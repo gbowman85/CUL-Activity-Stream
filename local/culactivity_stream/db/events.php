@@ -24,19 +24,22 @@
  *
  */
 
-/* List of handlers */
-$handlers = array (
-    'mod_created' => array (
-        'handlerfile'      => '/local/culactivity_stream/lib.php',
-        'handlerfunction'  => 'local_culactivity_stream_mod_created',
-        'schedule'         => 'instant',
-        'internal'         => 1,
+$observers = array(
+
+    /*
+     * Course module created.
+     */
+    array(
+        'eventname' => '\core\event\course_module_created',
+        'callback'  => 'local_culactivity_stream_observer::course_module_created',
     ),
-    'mod_updated' => array (
-        'handlerfile'      => '/local/culactivity_stream/lib.php',
-        'handlerfunction'  => 'local_culactivity_stream_mod_updated',
-        'schedule'         => 'instant',
-        'internal'         => 1,
-    )
+
+    /*
+     * Course module updated.
+     */
+    array(
+        'eventname' => '\core\event\course_module_updated',
+        'callback'  => 'local_culactivity_stream_observer::course_module_updated',
+    ),
 
 );

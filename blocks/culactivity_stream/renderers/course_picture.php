@@ -248,7 +248,11 @@ class course_picture implements renderable {
 
         if ($this->course->has_course_overviewfiles()) {
             foreach ($this->course->get_course_overviewfiles() as $file) {
-                $isimage = $file->is_valid_image();
+                try {
+                    $isimage = $file->is_valid_image();
+                } catch (exception $e) {
+                    $isimage = false;
+                }
 
                 if ($isimage) {
                     $url = moodle_url::make_pluginfile_url(

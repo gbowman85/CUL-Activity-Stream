@@ -15,17 +15,36 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'local_culactivity_stream', language 'en'
+ * Uninstallation code for the CUL Activity Stream message processor
  *
- * @package    local
+ * @package    message
  * @subpackage culactivity_stream
  * @copyright  2013 Amanda Doughty <amanda.doughty.1@city.ac.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
+ * 
  */
 
-$string['incourse'] = ' in {$a}.';
-$string['messageprovider:course_updates'] = 'Course updates';
-$string['created'] = '{$a} created';
-$string['updated'] = '{$a} updated';
-$string['pluginname'] = 'CUL Activity Stream';
+defined('MOODLE_INTERNAL') || die;
+
+/**
+ * Uninstall the plugin.
+ *
+ * @return boolean Always true (indicating success).
+ */
+function xmldb_message_culactivity_stream__uninstall() {
+    global $DB;
+
+    $dbman = $DB->get_manager();
+
+    $table = new xmldb_table('message_culactivity_stream');
+    if ($dbman->table_exists($table)) {
+        $dbman->drop_table($table);
+    }
+
+    $table = new xmldb_table('message_culactivity_stream_q');
+    if ($dbman->table_exists($table)) {
+        $dbman->drop_table($table);
+    }
+
+    return true;
+}
